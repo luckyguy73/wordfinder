@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Navbar() {
-  const [navbar, setNavbar] = useState(false);
+  const [navbar, setNavbar] = useState(true);
   return (
     <div>
       <Head>
@@ -21,14 +21,14 @@ export default function Navbar() {
           <div>
             <div className='flex items-center justify-between py-3 md:py-5 md:block'>
               <a href='#'>
-                <h2 className='text-2xl text-white font-bold'>NEXT JS</h2>
+                <h2 className='text-2xl text-white font-bold'>Wordfinder</h2>
               </a>
               <div className='md:hidden'>
                 <button
                   className='p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border'
                   onClick={() => setNavbar(!navbar)}
                 >
-                  {navbar ? (
+                  {!navbar ? (
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       className='w-6 h-6 text-white'
@@ -64,32 +64,24 @@ export default function Navbar() {
           <div>
             <div
               className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
-                navbar ? 'block' : 'hidden'
+                navbar ? 'hidden' : 'block'
               }`}
             >
               <ul className='items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0'>
                 <li className='text-white'>
-                  <Link href='/'>Home</Link>
+                  <Link href='/'>Dictionary</Link>
                 </li>
                 <li className='text-white'>
-                  <Link href='/blogs'>Blogs</Link>
+                  <Link href='/'>Word List</Link>
                 </li>
                 <li className='text-white'>
-                  <Link href='/about'>About</Link>
-                </li>
-                <li className='text-white'>
-                  <Link href='/contact'>Contact</Link>
+                  <Link href='/'>Contact</Link>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </nav>
-      <div className='flex justify-center items-center mt-8'>
-        <h1 className='text-2xl font-bold text-purple-500'>
-          Create Responsive Navbar Menu in Next js with Tailwind CSS
-        </h1>
-      </div>
     </div>
   );
 }
