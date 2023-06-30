@@ -1,26 +1,20 @@
 import Form from '@app/components/Form';
 import { queryDictionary } from '@lib/database';
+import Results from './components/Results';
 
 export default async function Home() {
   const words = await queryDictionary();
   console.log(words);
+
+
+
   return (
-    <main>
-      <div className='mt-8 m-auto'>
-        <div className='mb-10 text-center'>
-          <h1 className='text-2xl font-bold text-rose-900 m-auto'>
-            Enter in your search criteria to start finding your words
-          </h1>
-        </div>
-        <div className='m-10'>
-          <ul>
-            {words?.map((word) => (
-              <li>{word.word}</li>
-            ))}
-          </ul>
-        </div>
-        <Form />
+    <section className='border-2 border-slate-200 rounded shadow-lg'>
+      <div className='text-2xl bg-white '>
+        <h1 className='text-center'>Enter Letters</h1>
       </div>
-    </main>
+      <Form />
+      <Results />
+    </section>
   );
 }

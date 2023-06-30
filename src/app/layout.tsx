@@ -1,5 +1,6 @@
 import Navbar from '@app/components/Navbar';
 import { Montserrat } from 'next/font/google';
+import Footer from './components/Footer';
 import './globals.css';
 
 const mont = Montserrat({ subsets: ['latin'] });
@@ -16,9 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${mont.className} bg-slate-200`}>
+      <body
+        className={`${mont.className} bg-orange-50 flex flex-col min-h-screen`}
+      >
         <Navbar />
-        {children}
+        <main className='flex-grow m-4'>{children}</main>
+        <Footer />
       </body>
     </html>
   );

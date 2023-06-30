@@ -67,14 +67,14 @@ export default function Navbar() {
                 navbar ? 'hidden' : 'block'
               }`}
             >
-              <ul className='items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0'>
-                <li className='text-white'>
+              <ul className='text-teal-300 items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0'>
+                <li>
                   <Link href='/'>Dictionary</Link>
                 </li>
-                <li className='text-white'>
+                <li>
                   <Link href='/'>Word List</Link>
                 </li>
-                <li className='text-white'>
+                <li>
                   <Link href='/'>Contact</Link>
                 </li>
               </ul>
