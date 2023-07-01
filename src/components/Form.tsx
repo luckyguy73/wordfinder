@@ -1,14 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { FormContext } from '@context/form-context';
+import { useContext } from 'react';
 import Input from './Input';
 
+interface FormContextInterface {
+  [key: string]: any;
+}
+
 export default function Form() {
-  const [include, setInclude] = useState('');
-  const [exclude, setExclude] = useState('');
-  const [starts, setStarts] = useState('');
-  const [ends, setEnds] = useState('');
-  const [wordLength, setWordLength] = useState('');
+  const {
+    include,
+    exclude,
+    starts,
+    ends,
+    wordLength,
+    setInclude,
+    setExclude,
+    setStarts,
+    setEnds,
+    setWordLength,
+  }: FormContextInterface = useContext(FormContext);
 
   function handleFormSubmit(event: any) {
     event.preventDefault();
@@ -17,9 +29,14 @@ export default function Form() {
       exclude,
       starts,
       ends,
-      wordLength
+      wordLength,
     };
-    console.log(data)
+    console.log(data);
+    setInclude('');
+    setExclude('');
+    setStarts('');
+    setEnds('');
+    setWordLength('');
   }
 
   return (
@@ -32,6 +49,7 @@ export default function Form() {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setInclude(e.target.value)
           }
+          value={include}
         />
         <Input
           id='exclude'
@@ -40,22 +58,25 @@ export default function Form() {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setExclude(e.target.value)
           }
+          value={exclude}
         />
         <Input
-          id='start'
+          id='starts'
           label='Starts With:'
           required={false}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setStarts(e.target.value)
           }
+          value={starts}
         />
         <Input
-          id='end'
+          id='ends'
           label='Ends With:'
           required={false}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setEnds(e.target.value)
           }
+          value={ends}
         />
         <Input
           id='length'
@@ -64,6 +85,7 @@ export default function Form() {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setWordLength(e.target.value)
           }
+          value={wordLength}
         />
 
         <div className='submit-button'>
@@ -72,4 +94,4 @@ export default function Form() {
       </form>
     </section>
   );
-};
+}
