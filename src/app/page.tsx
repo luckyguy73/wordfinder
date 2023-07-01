@@ -1,12 +1,10 @@
-import Form from '@app/components/Form';
+import Form from '@components/Form';
 import { queryDictionary } from '@lib/database';
-import Results from './components/Results';
+import Results from '../components/Results';
 
 export default async function Home() {
   const words = await queryDictionary();
   console.log(words);
-
-
 
   return (
     <section className='border-2 border-slate-200 rounded shadow-lg'>
