@@ -3,8 +3,10 @@ import { queryDictionary } from '@lib/database';
 import Results from '../components/Results';
 
 export default async function Home() {
-  const words = await queryDictionary();
-  console.log(words);
+  const { data, error } = await queryDictionary();
+
+  console.log('wordlist: ', data);
+  console.log(error);
 
   return (
     <section className='border-2 border-slate-200 rounded shadow-lg'>

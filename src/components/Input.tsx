@@ -1,8 +1,10 @@
+import { ChangeEventHandler } from "react";
+
 interface Props {
   id: string;
   label: string;
   required: boolean;
-  onChange: any;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
 }
 
