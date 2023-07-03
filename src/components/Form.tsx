@@ -130,6 +130,7 @@ export default function Form({ words }: { words: string[] }) {
             }
             onClick={() => setInclude('')}
             value={include}
+            type='text'
           />
           <Input
             id='exclude'
@@ -140,6 +141,7 @@ export default function Form({ words }: { words: string[] }) {
             }
             onClick={() => setExclude('')}
             value={exclude}
+            type='text'
           />
           <Input
             id='starts'
@@ -150,6 +152,7 @@ export default function Form({ words }: { words: string[] }) {
             }
             onClick={() => setStarts('')}
             value={starts}
+            type='text'
           />
           <Input
             id='ends'
@@ -160,6 +163,7 @@ export default function Form({ words }: { words: string[] }) {
             }
             onClick={() => setEnds('')}
             value={ends}
+            type='text'
           />
           <Input
             id='length'
@@ -170,6 +174,7 @@ export default function Form({ words }: { words: string[] }) {
             }
             onClick={() => setWordLength('')}
             value={wordLength}
+            type='number'
           />
 
           <div className='mx-auto mt-4 col-span-2'>
