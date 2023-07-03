@@ -17,12 +17,6 @@ export default function Form({ words }: { words: string[] }) {
     event.preventDefault();
     setIsLoading(true);
 
-    // TODO: longer words adjust columns
-    // TODO: regex pattern option
-    // TODO: link from word to definition / hover definition
-    // TODO: includes any of the letters vs all
-    // TODO: media breakpoint to display results to the right of the form on desktop
-
     const wordLengthInt = Number.parseInt(wordLength, 10);
 
     const wordlistInclusive = filterWordsByLength(
