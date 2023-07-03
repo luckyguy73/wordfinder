@@ -106,7 +106,7 @@ export default function Form({ words }: { words: string[] }) {
 
   return (
     <>
-      <section className='mx-auto mb-6 py-6 max-w-md bg-teal-300 rounded'>
+      <section className='mx-auto mb-6 py-6 max-w-md bg-teal-300 rounded shadow-lg'>
         <form
           onSubmit={handleFormSubmit}
           className='
@@ -189,7 +189,7 @@ export default function Form({ words }: { words: string[] }) {
           <div className='mb-6 p-2 text-center text-3xl bg-white'>
             <h2>{results.length} Results</h2>
           </div>
-          <section className='mx-auto max-w-md bg-teal-300 rounded'>
+          <section className='mx-auto max-w-md bg-teal-300 rounded shadow-lg'>
             {results.length > 0 ? (
               <Results results={results} />
             ) : (
