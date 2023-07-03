@@ -24,7 +24,7 @@ export default function Form({ words }: { words: string[] }) {
     // TODO: includes any of the letters vs all
     // TODO: media breakpoint to display results to the right of the form on desktop
 
-    const wordLengthInt = Number.parseInt(wordLength, 10)
+    const wordLengthInt = Number.parseInt(wordLength, 10);
 
     const wordlistInclusive = filterWordsByLength(
       filterWordsByLetters(words, include.split('')),
@@ -36,17 +36,21 @@ export default function Form({ words }: { words: string[] }) {
       exclude.split('')
     );
 
-    const wordlist = filterWordsByEndingLetter(wordlistExclusive, ends);
+    const wordlistStarting = filterWordsByStartingLetter(
+      wordlistExclusive,
+      starts
+    );
+
+    const wordlist = filterWordsByEndingLetter(wordlistStarting, ends);
     if (wordlist.length > 1000) {
-      alert('There are over 1000 results. Please refine your search')
+      alert('There are over 1000 results. Please refine your search');
       wordlist.length = 0;
-      setResults(undefined)
+      setResults(undefined);
       setIsLoading(false);
       return;
     }
     console.log(wordlist);
     setResults(wordlist);
-    // clearInputs();
     setIsLoading(false);
   }
 
@@ -69,7 +73,7 @@ export default function Form({ words }: { words: string[] }) {
 
   function filterWordsByLength(words: string[], length: number): string[] {
     if (!Number.isInteger(length)) {
-      setWordLength('')
+      setWordLength('');
       return words;
     }
     return words.filter((word) => word.length === length);
@@ -86,12 +90,25 @@ export default function Form({ words }: { words: string[] }) {
     });
   }
 
-  function clearInputs() {
+  function filterWordsByStartingLetter(
+    words: string[],
+    startingLetter: string
+  ): string[] {
+    if (startingLetter === '') return words;
+    return words.filter((word) => {
+      const lastLetter = word[0].toLowerCase();
+      return lastLetter === startingLetter.toLowerCase();
+    });
+  }
+
+  function clearInputs(e: any) {
+    e.preventDefault();
     setInclude('');
     setExclude('');
     setStarts('');
     setEnds('');
-    setWordLength('5');
+    setResults(undefined);
+    setWordLength('');
   }
 
   return (
@@ -156,10 +173,16 @@ export default function Form({ words }: { words: string[] }) {
             value={wordLength}
           />
 
-          <div className='submit-button'>
-            <button type='submit' disabled={isLoading}>
+          <div className='mx-auto mt-4 col-span-2'>
+            <button className='button' type='submit' disabled={isLoading}>
               {isLoading ? 'Loading...' : 'Submit'}
             </button>
+            <input
+              type='button'
+              className='button cursor-pointer'
+              onClick={clearInputs}
+              value='Clear'
+            />
           </div>
         </form>
       </section>
@@ -169,7 +192,15 @@ export default function Form({ words }: { words: string[] }) {
             <h2>Results</h2>
           </div>
           <section className='mx-auto max-w-md bg-teal-300 rounded'>
-            <Results results={results} />
+            {results.length > 0 ? (
+              <Results results={results} />
+            ) : (
+              <div className='p-4'>
+                <p className='max-w-max mx-auto p-2 bg-white rounded border border-slate-400 text-center'>
+                  No results...
+                </p>
+              </div>
+            )}
           </section>
         </div>
       )}

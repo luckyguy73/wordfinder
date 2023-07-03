@@ -16,7 +16,7 @@ export default function Input({ id, label, required, onChange, onClick, value}: 
       <label className='ml-auto mr-2 text-lg' htmlFor={id}>
         {label}
       </label>
-      <div className="relative">
+      <div className='relative'>
         <input
           className='pl-2 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-11/12'
           type='text'
@@ -26,6 +26,7 @@ export default function Input({ id, label, required, onChange, onClick, value}: 
           autoComplete='off'
           onChange={onChange}
           value={value}
+          spellCheck='false'
         />
         {value && (
           <button
