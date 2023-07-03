@@ -28,10 +28,20 @@ export default function Form({ words }: { words: { word: string }[] }) {
 
     const wordsArray = words.map((word: { word: string }) => word.word);
 
+    const wordLengthInt = Number.parseInt(wordLength, 10);
+    
+    if (!Number.isInteger(wordLengthInt)) {
+      setWordLength('5')
+      setIsLoading(false)
+      alert('Word Length must be a Number');
+      return;
+    }
+
     const wordlist = filterWordsByLength(
       filterWordsByLetters(wordsArray, include.split('')),
-      5
+      wordLengthInt
     );
+
     console.log(wordlist);
     setResults(wordlist);
     clearInputs();

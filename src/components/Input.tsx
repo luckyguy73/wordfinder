@@ -15,7 +15,7 @@ export default function Input({ id, label, required, onChange, value}: Props) {
         {label}
       </label>
       <input
-        className='mx-2 rounded outline-none'
+        className='mx-2 pl-2 rounded outline-none'
         type='text'
         id={id}
         name={id}

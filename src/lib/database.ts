@@ -5,9 +5,9 @@ export async function queryDictionary() {
   const { data, error } = await supabase
     .from('wordlist')
     .select('word')
-    // .filter('word_length', 'in', '(5)');
+    .eq('word_length', 5)
 
-  .eq('word_length', 5)
+  // .filter('word_length', 'in', '(5)')
   // .gt('column', 'Greater than')
   // .lt('column', 'Less than')
   // .gte('column', 'Greater than or equal to')
