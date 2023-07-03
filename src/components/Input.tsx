@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from "react";
-import { XMarkIcon } from '@heroicons/react/24/solid';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 
 interface Props {
   id: string;
@@ -18,7 +18,7 @@ export default function Input({ id, label, required, onChange, onClick, value}: 
       </label>
       <div className='relative'>
         <input
-          className='pl-2 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-11/12'
+          className='pl-2 pr-8 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-11/12'
           type='text'
           id={id}
           name={id}
@@ -33,7 +33,7 @@ export default function Input({ id, label, required, onChange, onClick, value}: 
             className='absolute top-1/2 right-8 transform -translate-y-1/2 focus:outline-none'
             onClick={onClick}
           >
-            <XMarkIcon className='h-6 w-6 text-gray-400 hover:text-gray-900' />
+            <XCircleIcon className='h-6 w-6 text-gray-300 hover:text-gray-900' />
           </button>
         )}
       </div>
