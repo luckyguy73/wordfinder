@@ -18,7 +18,6 @@ export default function Form({ words }: { words: string[] }) {
     setIsLoading(true);
 
     // TODO: longer words adjust columns
-    // TODO: clear all input button
     // TODO: regex pattern option
     // TODO: link from word to definition / hover definition
     // TODO: includes any of the letters vs all

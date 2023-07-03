@@ -29,12 +29,12 @@ export default function Input({ id, label, required, onChange, onClick, value}: 
           spellCheck='false'
         />
         {value && (
-          <button
-            className='absolute top-1/2 right-2 transform -translate-y-1/2 focus:outline-none'
+          <a
+            className='absolute top-1/2 right-2 transform -translate-y-1/2 focus:outline-none cursor-pointer'
             onClick={onClick}
           >
             <XCircleIcon className='h-6 w-6 text-gray-300 hover:text-gray-900' />
-          </button>
+          </a>
         )}
       </div>
     </>
