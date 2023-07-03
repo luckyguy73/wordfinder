@@ -1,6 +1,5 @@
 'use client';
 
-import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -8,14 +7,6 @@ export default function Navbar() {
   const [navbar, setNavbar] = useState(true);
   return (
     <div>
-      <Head>
-        <title>Create Next Responsive Navbar With Tailwind CSS</title>
-        <meta
-          name='description'
-          content='Create Next JS Responsive Menu with Tailwind CSS'
-        />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
       <nav className='w-full bg-gray-800 shadow'>
         <div className='justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8'>
           <div>
@@ -69,10 +60,7 @@ export default function Navbar() {
             >
               <ul className='text-teal-300 items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0'>
                 <li>
-                  <Link href='/'>Dictionary</Link>
-                </li>
-                <li>
-                  <Link href='/'>Word List</Link>
+                  <Link href='/'>Coming Soon</Link>
                 </li>
                 <li>
                   <Link href='/'>Contact</Link>
