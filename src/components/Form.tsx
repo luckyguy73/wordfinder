@@ -17,23 +17,36 @@ export default function Form({ words }: { words: string[] }) {
     event.preventDefault();
     setIsLoading(true);
 
-    const wordLengthInt = Number.parseInt(wordLength, 10);
-    
-    if (!Number.isInteger(wordLengthInt)) {
-      setWordLength('5')
-      setIsLoading(false)
-      alert('Word Length must be a Number');
-      return;
-    }
+    // TODO: longer words adjust columns
+    // TODO: clear all input button
+    // TODO: regex pattern option
+    // TODO: link from word to definition / hover definition
+    // TODO: includes any of the letters vs all
+    // TODO: media breakpoint to display results to the right of the form on desktop
 
-    const wordlist = filterWordsByLength(
+    const wordLengthInt = Number.parseInt(wordLength, 10)
+
+    const wordlistInclusive = filterWordsByLength(
       filterWordsByLetters(words, include.split('')),
       wordLengthInt
     );
 
+    const wordlistExclusive = filterWordsWithoutLetters(
+      wordlistInclusive,
+      exclude.split('')
+    );
+
+    const wordlist = filterWordsByEndingLetter(wordlistExclusive, ends);
+    if (wordlist.length > 1000) {
+      alert('There are over 1000 results. Please refine your search')
+      wordlist.length = 0;
+      setResults(undefined)
+      setIsLoading(false);
+      return;
+    }
     console.log(wordlist);
     setResults(wordlist);
-    clearInputs();
+    // clearInputs();
     setIsLoading(false);
   }
 
@@ -55,7 +68,22 @@ export default function Form({ words }: { words: string[] }) {
   }
 
   function filterWordsByLength(words: string[], length: number): string[] {
+    if (!Number.isInteger(length)) {
+      setWordLength('')
+      return words;
+    }
     return words.filter((word) => word.length === length);
+  }
+
+  function filterWordsByEndingLetter(
+    words: string[],
+    endingLetter: string
+  ): string[] {
+    if (endingLetter === '') return words;
+    return words.filter((word) => {
+      const lastLetter = word[word.length - 1].toLowerCase();
+      return lastLetter === endingLetter.toLowerCase();
+    });
   }
 
   function clearInputs() {
@@ -73,9 +101,9 @@ export default function Form({ words }: { words: string[] }) {
           onSubmit={handleFormSubmit}
           className='
           grid
-          grid-cols-[145px_calc(100%-165px)]
+          grid-cols-[145px_calc(100%-145px)]
           gap-y-4
-          justify-around'
+          '
         >
           <Input
             id='include'
@@ -84,6 +112,7 @@ export default function Form({ words }: { words: string[] }) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setInclude(e.target.value)
             }
+            onClick={() => setInclude('')}
             value={include}
           />
           <Input
@@ -93,6 +122,7 @@ export default function Form({ words }: { words: string[] }) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setExclude(e.target.value)
             }
+            onClick={() => setExclude('')}
             value={exclude}
           />
           <Input
@@ -102,6 +132,7 @@ export default function Form({ words }: { words: string[] }) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setStarts(e.target.value)
             }
+            onClick={() => setStarts('')}
             value={starts}
           />
           <Input
@@ -111,6 +142,7 @@ export default function Form({ words }: { words: string[] }) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEnds(e.target.value)
             }
+            onClick={() => setEnds('')}
             value={ends}
           />
           <Input
@@ -120,6 +152,7 @@ export default function Form({ words }: { words: string[] }) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setWordLength(e.target.value)
             }
+            onClick={() => setWordLength('')}
             value={wordLength}
           />
 
