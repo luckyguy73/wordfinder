@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Input from './Input';
 import Results from './Results';
 
-export default function Form({ words }: { words: { word: string }[] }) {
+export default function Form({ words }: { words: string[] }) {
   const [results, setResults] = useState<string[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [include, setInclude] = useState('');
@@ -17,17 +17,6 @@ export default function Form({ words }: { words: { word: string }[] }) {
     event.preventDefault();
     setIsLoading(true);
 
-    const data = {
-      include,
-      exclude,
-      starts,
-      ends,
-      wordLength,
-    };
-    console.log(data);
-
-    const wordsArray = words.map((word: { word: string }) => word.word);
-
     const wordLengthInt = Number.parseInt(wordLength, 10);
     
     if (!Number.isInteger(wordLengthInt)) {
@@ -38,7 +27,7 @@ export default function Form({ words }: { words: { word: string }[] }) {
     }
 
     const wordlist = filterWordsByLength(
-      filterWordsByLetters(wordsArray, include.split('')),
+      filterWordsByLetters(words, include.split('')),
       wordLengthInt
     );
 
@@ -49,7 +38,6 @@ export default function Form({ words }: { words: { word: string }[] }) {
   }
 
   function filterWordsByLetters(words: string[], letters: string[]): string[] {
-    console.log(typeof letters);
     return words.filter((word) => {
       const wordLetters = word.split('');
       return letters.every((letter) => wordLetters.includes(letter));
