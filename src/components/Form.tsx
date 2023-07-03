@@ -189,7 +189,7 @@ export default function Form({ words }: { words: string[] }) {
       {results && (
         <div className='mb-6'>
           <div className='mb-6 p-2 text-center text-3xl bg-white'>
-            <h2>Results</h2>
+            <h2>{results.length} Results</h2>
           </div>
           <section className='mx-auto max-w-md bg-teal-300 rounded'>
             {results.length > 0 ? (
