@@ -1,5 +1,4 @@
 import Navbar from '@components/Navbar';
-import FormProvider from '@context/form-context';
 import { Montserrat } from 'next/font/google';
 import Footer from '../components/Footer';
 import './globals.css';
@@ -22,9 +21,7 @@ export default function RootLayout({
         className={`${mont.className} bg-orange-50 flex flex-col min-h-screen`}
       >
         <Navbar />
-        <FormProvider>
-          <main className='flex-grow m-4'>{children}</main>
-        </FormProvider>
+        <main className='flex-grow m-4'>{children}</main>
         <Footer />
       </body>
     </html>

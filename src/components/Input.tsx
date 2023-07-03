@@ -10,12 +10,12 @@ interface Props {
 
 export default function Input({ id, label, required, onChange, value}: Props) {
   return (
-    <div className='flex flex-row flex-wrap items-baseline'>
-      <label className='my-2 w-2/5' htmlFor={id}>
+    <>
+      <label className='ml-auto text-lg' htmlFor={id}>
         {label}
       </label>
       <input
-        className="rounded"
+        className='mx-2 rounded outline-none'
         type='text'
         id={id}
         name={id}
@@ -23,6 +23,6 @@ export default function Input({ id, label, required, onChange, value}: Props) {
         onChange={onChange}
         value={value}
       />
-    </div>
+    </>
   );
 }

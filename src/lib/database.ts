@@ -4,7 +4,7 @@ export async function queryDictionary() {
   // you can change max rows in supabase api settings
   const { data, error } = await supabase
     .from('wordlist')
-    .select()
+    .select('word')
     // .filter('word_length', 'in', '(5)');
 
   .eq('word_length', 5)
