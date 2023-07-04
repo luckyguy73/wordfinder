@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Input from './Input';
 import Results from './Results';
 
@@ -13,6 +13,7 @@ export default function Form({ words }: { words: string[] }) {
   const [ends, setEnds] = useState('');
   const [wordLength, setWordLength] = useState('5');
   const [columnCount, setColumnCount] = useState('');
+  const includesRef = useRef<HTMLInputElement>()
 
   async function handleFormSubmit(event: any) {
     event.preventDefault();
@@ -113,13 +114,15 @@ export default function Form({ words }: { words: string[] }) {
   }
 
   function clearInputs(e: any) {
-    e.preventDefault();
     setInclude('');
     setExclude('');
     setStarts('');
     setEnds('');
     setResults(undefined);
     setWordLength('');
+    if(includesRef.current) {
+      includesRef.current.focus();
+    }
   }
 
   return (
@@ -143,6 +146,7 @@ export default function Form({ words }: { words: string[] }) {
             onClick={() => setInclude('')}
             value={include}
             type='text'
+            includesRef={includesRef}
           />
           <Input
             id='exclude'

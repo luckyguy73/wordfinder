@@ -9,9 +9,10 @@ interface Props {
   onChange: ChangeEventHandler<HTMLInputElement>;
   onClick: () => void;
   value: string;
+  includesRef?: any;
 }
 
-export default function Input({ id, label, required, onChange, onClick, type, value}: Props) {
+export default function Input({ id, label, required, onChange, onClick, includesRef, type, value}: Props) {
   return (
     <>
       <label className='ml-auto mr-2 text-lg' htmlFor={id}>
@@ -28,6 +29,7 @@ export default function Input({ id, label, required, onChange, onClick, type, va
           onChange={onChange}
           value={value}
           spellCheck='false'
+          ref={includesRef}
         />
         {value && (
           <a
