@@ -12,6 +12,7 @@ export default function Form({ words }: { words: string[] }) {
   const [starts, setStarts] = useState('');
   const [ends, setEnds] = useState('');
   const [wordLength, setWordLength] = useState('5');
+  const [columnCount, setColumnCount] = useState<string[]>();
 
   async function handleFormSubmit(event: any) {
     event.preventDefault();
@@ -44,7 +45,24 @@ export default function Form({ words }: { words: string[] }) {
     }
     console.log(wordlist);
     setResults(wordlist);
+    setNumberOfResultColumns();
     setIsLoading(false);
+  }
+
+  function setNumberOfResultColumns() {
+    let length = Number.parseInt(wordLength, 10);
+
+    if (!Number.isInteger(length) || length > 20) {
+      setColumnCount(['1', '1']);
+    } else if (length < 6) {
+      setColumnCount(['4', '6']);
+    } else if (length < 9) {
+      setColumnCount(['2', '4']);
+    } else if (length < 14) {
+      setColumnCount(['2', '3']);
+    } else {
+      setColumnCount(['1', '2']);
+    }
   }
 
   function filterWordsByLetters(words: string[], letters: string[]): string[] {
@@ -191,7 +209,7 @@ export default function Form({ words }: { words: string[] }) {
           </div>
           <section className='mx-auto max-w-md bg-teal-300 rounded shadow-lg'>
             {results.length > 0 ? (
-              <Results results={results} />
+              <Results results={results} columnCount={columnCount} />
             ) : (
               <div className='p-4'>
                 <p className='max-w-max mx-auto p-2 bg-white rounded border border-slate-400 text-center'>

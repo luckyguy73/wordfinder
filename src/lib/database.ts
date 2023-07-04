@@ -1,11 +1,18 @@
 import { supabase } from '@lib/supabaseClient';
 
 export async function queryDictionary() {
+  // 3 methods so far to get words
+  // store list on server, dictionary api, supabase backend
+
+  // dictionary api, sample usage
+  // https://www.dictionary.com/e/wp-json/dictionary/v1/word-finder?letters=G,Y,C,J,L,V,A,E
+
+  // supabase api
   // you can change max rows in supabase api settings
   const { data, error } = await supabase
     .from('wordlist')
     .select('word')
-    .eq('word_length', 5)
+    .eq('word_length', 5);
 
   // .filter('word_length', 'in', '(5)')
   // .gt('column', 'Greater than')
