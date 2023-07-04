@@ -173,15 +173,16 @@ export default function Form({ words }: { words: string[] }) {
           Pattern
         </li>
       </ul>
-      <section className='mb-6 py-6 bg-teal-300 rounded-b rounded-tr shadow-lg'>
+      <section className='mb-6 py-3 bg-teal-300 rounded-b rounded-tr shadow-lg'>
         <form
           onSubmit={handleFormSubmit}
           className='
           grid
           grid-cols-[100px_calc(100%-120px)]
           grid-rows-[repeat(5,_minmax(0,_1fr))_96px]
-          gap-y-4
+          gap-y-2
           items-baseline
+          justify-center
           '
         >
           {activeTab === 'Filters' && (
