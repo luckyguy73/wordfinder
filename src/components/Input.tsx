@@ -1,5 +1,5 @@
-import { ChangeEventHandler } from "react";
 import { XCircleIcon } from '@heroicons/react/24/solid';
+import { ChangeEventHandler } from 'react';
 
 interface Props {
   id: string;
@@ -9,10 +9,23 @@ interface Props {
   onChange: ChangeEventHandler<HTMLInputElement>;
   onClick: () => void;
   value: string;
-  includesRef?: any;
+  inputRef?: any;
+  placeholder?: string;
+  autoFocus?: boolean;
 }
 
-export default function Input({ id, label, required, onChange, onClick, includesRef, type, value}: Props) {
+export default function Input({
+  id,
+  autoFocus,
+  label,
+  required,
+  onChange,
+  onClick,
+  inputRef,
+  placeholder,
+  type,
+  value,
+}: Props) {
   return (
     <>
       <label className='ml-auto mr-2 text-lg' htmlFor={id}>
@@ -28,8 +41,10 @@ export default function Input({ id, label, required, onChange, onClick, includes
           autoComplete='off'
           onChange={onChange}
           value={value}
+          placeholder={placeholder}
           spellCheck='false'
-          ref={includesRef}
+          ref={inputRef}
+          autoFocus={autoFocus}
         />
         {value && (
           <a

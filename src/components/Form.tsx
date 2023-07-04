@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Input from './Input';
 import Results from './Results';
 
@@ -13,30 +13,41 @@ export default function Form({ words }: { words: string[] }) {
   const [ends, setEnds] = useState('');
   const [wordLength, setWordLength] = useState('5');
   const [columnCount, setColumnCount] = useState('');
-  const includesRef = useRef<HTMLInputElement>()
+  const [pattern, setPattern] = useState('');
+  const [activeTab, setActiveTab] = useState<'Wordle' | 'Pattern'>('Wordle');
+
+  const includesRef = useRef<HTMLInputElement>();
+  const patternRef = useRef<HTMLInputElement>();
 
   async function handleFormSubmit(event: any) {
     event.preventDefault();
     setIsLoading(true);
 
-    const wordLengthInt = Number.parseInt(wordLength, 10);
+    let wordlist;
 
-    const wordlistInclusive = filterWordsByLength(
-      filterWordsByLetters(words, include.split('')),
-      wordLengthInt
-    );
+    if (activeTab === 'Pattern') {
+      wordlist = findMatchingWords(words, pattern);
+    } else {
+      const wordLengthInt = Number.parseInt(wordLength, 10);
 
-    const wordlistExclusive = filterWordsWithoutLetters(
-      wordlistInclusive,
-      exclude.split('')
-    );
+      const wordlistInclusive = filterWordsByLength(
+        filterWordsByLetters(words, include.split('')),
+        wordLengthInt
+      );
 
-    const wordlistStarting = filterWordsByStartingLetter(
-      wordlistExclusive,
-      starts
-    );
+      const wordlistExclusive = filterWordsWithoutLetters(
+        wordlistInclusive,
+        exclude.split('')
+      );
 
-    const wordlist = filterWordsByEndingLetter(wordlistStarting, ends);
+      const wordlistStarting = filterWordsByStartingLetter(
+        wordlistExclusive,
+        starts
+      );
+
+      wordlist = filterWordsByEndingLetter(wordlistStarting, ends);
+    }
+
     if (wordlist.length > 1000) {
       alert('There are over 1000 results. Please refine your search');
       wordlist.length = 0;
@@ -44,6 +55,7 @@ export default function Form({ words }: { words: string[] }) {
       setIsLoading(false);
       return;
     }
+
     console.log(wordlist);
     setResults(wordlist);
     setNumberOfResultColumns();
@@ -113,87 +125,160 @@ export default function Form({ words }: { words: string[] }) {
     });
   }
 
-  function clearInputs(e: any) {
+  function findMatchingWords(wordList: string[], pattern: string): string[] {
+    const regexPattern = pattern.replace(/\?/g, '[a-z]');
+    const regex = new RegExp(`^${regexPattern}$`);
+
+    return wordList.filter((word) => regex.test(word));
+  }
+
+  function clearInputs() {
     setInclude('');
     setExclude('');
     setStarts('');
     setEnds('');
     setResults(undefined);
-    setWordLength('');
-    if(includesRef.current) {
+    setWordLength('5');
+    setPattern('');
+    setFocus();
+  }
+
+  function setFocus() {
+    if (includesRef.current) {
       includesRef.current.focus();
+    }
+    if (patternRef.current) {
+      patternRef.current.focus();
     }
   }
 
+  function handleTabClick(tab: 'Wordle' | 'Pattern') {
+    setActiveTab(tab);
+    // clearInputs();
+  }
+
   return (
-    <>
-      <section className='mx-auto mb-6 py-6 max-w-md bg-teal-300 rounded shadow-lg'>
+    <div className='mx-auto max-w-md'>
+      <ul className='flex bg-white items-baseline'>
+        <li
+          className={`tab ${activeTab === 'Wordle' ? 'active' : ''}`}
+          onClick={() => handleTabClick('Wordle')}
+        >
+          Wordle
+        </li>
+        <li
+          className={`tab ${activeTab === 'Pattern' ? 'active' : ''}`}
+          onClick={() => handleTabClick('Pattern')}
+        >
+          Pattern
+        </li>
+      </ul>
+      <section className='mb-6 py-6 bg-teal-300 rounded-b rounded-tr shadow-lg'>
         <form
           onSubmit={handleFormSubmit}
           className='
           grid
           grid-cols-[145px_calc(100%-145px)]
+          grid-rows-[repeat(5,_minmax(0,_1fr))_96px]
           gap-y-4
           '
         >
-          <Input
-            id='include'
-            label='Include:'
-            required={false}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setInclude(e.target.value)
-            }
-            onClick={() => setInclude('')}
-            value={include}
-            type='text'
-            includesRef={includesRef}
-          />
-          <Input
-            id='exclude'
-            label='Exclude:'
-            required={false}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setExclude(e.target.value)
-            }
-            onClick={() => setExclude('')}
-            value={exclude}
-            type='text'
-          />
-          <Input
-            id='starts'
-            label='Starts With:'
-            required={false}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setStarts(e.target.value)
-            }
-            onClick={() => setStarts('')}
-            value={starts}
-            type='text'
-          />
-          <Input
-            id='ends'
-            label='Ends With:'
-            required={false}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEnds(e.target.value)
-            }
-            onClick={() => setEnds('')}
-            value={ends}
-            type='text'
-          />
-          <Input
-            id='length'
-            label='Word Length:'
-            required={false}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setWordLength(e.target.value)
-            }
-            onClick={() => setWordLength('')}
-            value={wordLength}
-            type='number'
-          />
+          {activeTab === 'Wordle' && (
+            <>
+              <Input
+                id='include'
+                label='Include:'
+                required={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setInclude(e.target.value)
+                }
+                onClick={() => setInclude('')}
+                value={include}
+                type='text'
+                inputRef={includesRef}
+                autoFocus={true}
+              />
+              <Input
+                id='exclude'
+                label='Exclude:'
+                required={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setExclude(e.target.value)
+                }
+                onClick={() => setExclude('')}
+                value={exclude}
+                type='text'
+              />
+              <Input
+                id='starts'
+                label='Starts With:'
+                required={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setStarts(e.target.value)
+                }
+                onClick={() => setStarts('')}
+                value={starts}
+                type='text'
+              />
+              <Input
+                id='ends'
+                label='Ends With:'
+                required={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEnds(e.target.value)
+                }
+                onClick={() => setEnds('')}
+                value={ends}
+                type='text'
+              />
+              <Input
+                id='length'
+                label='Word Length:'
+                required={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setWordLength(e.target.value)
+                }
+                onClick={() => setWordLength('')}
+                value={wordLength}
+                type='number'
+              />
+            </>
+          )}
 
-          <div className='mx-auto mt-4 col-span-2'>
+          {activeTab === 'Pattern' && (
+            <>
+              <div className='col-span-2 text-center'>
+                <span>
+                  <strong>PATTERN SEARCH</strong>
+                </span>
+              </div>
+              <div className='col-span-2 text-center'>
+                <span>
+                  &quot;
+                  <span className='text-orange-500'>
+                    <strong>?</strong>
+                  </span>
+                  &quot; is a placeholder for a single letter.
+                </span>
+              </div>
+              <Input
+                id='pattern'
+                label='Pattern:'
+                required={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPattern(e.target.value)
+                }
+                onClick={() => setPattern('')}
+                value={pattern}
+                type='text'
+                placeholder='e.g. ?e??t'
+                inputRef={patternRef}
+                autoFocus={true}
+              />
+            </>
+          )}
+
+          <div className='mx-auto mt-4 col-span-2 row-start-6 row-end-7'>
             <button className='button' type='submit' disabled={isLoading}>
               {isLoading ? 'Loading...' : 'Submit'}
             </button>
@@ -224,6 +309,6 @@ export default function Form({ words }: { words: string[] }) {
           </section>
         </div>
       )}
-    </>
+    </div>
   );
 }
