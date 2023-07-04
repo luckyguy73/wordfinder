@@ -14,7 +14,7 @@ export default function Form({ words }: { words: string[] }) {
   const [wordLength, setWordLength] = useState('5');
   const [columnCount, setColumnCount] = useState('');
   const [pattern, setPattern] = useState('');
-  const [activeTab, setActiveTab] = useState<'Wordle' | 'Pattern'>('Wordle');
+  const [activeTab, setActiveTab] = useState<'Filters' | 'Pattern'>('Filters');
 
   const includesRef = useRef<HTMLInputElement>();
   const patternRef = useRef<HTMLInputElement>();
@@ -152,7 +152,7 @@ export default function Form({ words }: { words: string[] }) {
     }
   }
 
-  function handleTabClick(tab: 'Wordle' | 'Pattern') {
+  function handleTabClick(tab: 'Filters' | 'Pattern') {
     setActiveTab(tab);
     // clearInputs();
   }
@@ -161,10 +161,10 @@ export default function Form({ words }: { words: string[] }) {
     <div className='mx-auto max-w-md'>
       <ul className='flex bg-white items-baseline'>
         <li
-          className={`tab ${activeTab === 'Wordle' ? 'active' : ''}`}
-          onClick={() => handleTabClick('Wordle')}
+          className={`tab ${activeTab === 'Filters' ? 'active' : ''}`}
+          onClick={() => handleTabClick('Filters')}
         >
-          Wordle
+          Filters
         </li>
         <li
           className={`tab ${activeTab === 'Pattern' ? 'active' : ''}`}
@@ -178,12 +178,13 @@ export default function Form({ words }: { words: string[] }) {
           onSubmit={handleFormSubmit}
           className='
           grid
-          grid-cols-[145px_calc(100%-145px)]
+          grid-cols-[100px_calc(100%-120px)]
           grid-rows-[repeat(5,_minmax(0,_1fr))_96px]
           gap-y-4
+          items-baseline
           '
         >
-          {activeTab === 'Wordle' && (
+          {activeTab === 'Filters' && (
             <>
               <Input
                 id='include'
@@ -196,7 +197,8 @@ export default function Form({ words }: { words: string[] }) {
                 value={include}
                 type='text'
                 inputRef={includesRef}
-                autoFocus={true}
+                autoFocus={false}
+                placeholder='letters to include'
               />
               <Input
                 id='exclude'
@@ -208,10 +210,11 @@ export default function Form({ words }: { words: string[] }) {
                 onClick={() => setExclude('')}
                 value={exclude}
                 type='text'
+                placeholder='letters to exclude'
               />
               <Input
                 id='starts'
-                label='Starts With:'
+                label='Begins:'
                 required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setStarts(e.target.value)
@@ -219,10 +222,11 @@ export default function Form({ words }: { words: string[] }) {
                 onClick={() => setStarts('')}
                 value={starts}
                 type='text'
+                placeholder='beginning letter'
               />
               <Input
                 id='ends'
-                label='Ends With:'
+                label='Ends:'
                 required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setEnds(e.target.value)
@@ -230,10 +234,11 @@ export default function Form({ words }: { words: string[] }) {
                 onClick={() => setEnds('')}
                 value={ends}
                 type='text'
+                placeholder='ending letter'
               />
               <Input
                 id='length'
-                label='Word Length:'
+                label='Length:'
                 required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setWordLength(e.target.value)
@@ -241,6 +246,7 @@ export default function Form({ words }: { words: string[] }) {
                 onClick={() => setWordLength('')}
                 value={wordLength}
                 type='number'
+                placeholder='word length'
               />
             </>
           )}
@@ -250,15 +256,6 @@ export default function Form({ words }: { words: string[] }) {
               <div className='col-span-2 text-center'>
                 <span>
                   <strong>PATTERN SEARCH</strong>
-                </span>
-              </div>
-              <div className='col-span-2 text-center'>
-                <span>
-                  &quot;
-                  <span className='text-orange-500'>
-                    <strong>?</strong>
-                  </span>
-                  &quot; is a placeholder for a single letter.
                 </span>
               </div>
               <Input
@@ -273,8 +270,17 @@ export default function Form({ words }: { words: string[] }) {
                 type='text'
                 placeholder='e.g. ?e??t'
                 inputRef={patternRef}
-                autoFocus={true}
+                autoFocus={false}
               />
+              <div className='col-span-2 text-center text-sm'>
+                <span>
+                  &quot;
+                  <span className='text-orange-500'>
+                    <strong>?</strong>
+                  </span>
+                  &quot; is a placeholder for a single letter.
+                </span>
+              </div>
             </>
           )}
 
