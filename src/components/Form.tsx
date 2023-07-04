@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Input from './Input';
 import Results from './Results';
 
@@ -18,6 +18,11 @@ export default function Form({ words }: { words: string[] }) {
 
   const includesRef = useRef<HTMLInputElement>();
   const patternRef = useRef<HTMLInputElement>();
+  const resultsRef = useRef<any>();
+
+  useEffect(() => {
+    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [results])
 
   async function handleFormSubmit(event: any) {
     event.preventDefault();
@@ -285,7 +290,7 @@ export default function Form({ words }: { words: string[] }) {
             </>
           )}
 
-          <div className='mx-auto mt-4 col-span-2 row-start-6 row-end-7'>
+          <div className='mx-auto mt-4 col-span-2 row-start-6 row-end-7' ref={resultsRef}>
             <button className='button' type='submit' disabled={isLoading}>
               {isLoading ? 'Loading...' : 'Submit'}
             </button>
