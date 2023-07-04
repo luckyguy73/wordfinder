@@ -180,7 +180,7 @@ export default function Form({ words }: { words: string[] }) {
           grid
           grid-cols-[100px_calc(100%-120px)]
           grid-rows-[repeat(5,_minmax(0,_1fr))_96px]
-          gap-y-2
+          gap-y-3
           items-baseline
           justify-center
           '

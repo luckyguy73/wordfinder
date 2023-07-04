@@ -28,7 +28,7 @@ export default function Input({
 }: Props) {
   return (
     <>
-      <label className='pl-4 text-sm' htmlFor={id}>
+      <label className='pl-1.5 text-sm' htmlFor={id}>
         {label}
       </label>
       <div className='relative mr-2'>

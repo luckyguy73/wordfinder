@@ -21,7 +21,7 @@ export default function RootLayout({
         className={`${mont.className} bg-orange-50 flex flex-col min-h-full sm:min-h-screen`}
       >
         <Navbar />
-        <main className='flex-grow mx-4 my-2'>{children}</main>
+        <main className='flex-grow m-4'>{children}</main>
         <Footer />
       </body>
     </html>
