@@ -12,7 +12,7 @@ export default function Form({ words }: { words: string[] }) {
   const [starts, setStarts] = useState('');
   const [ends, setEnds] = useState('');
   const [wordLength, setWordLength] = useState('5');
-  const [columnCount, setColumnCount] = useState<string[]>();
+  const [columnCount, setColumnCount] = useState('');
 
   async function handleFormSubmit(event: any) {
     event.preventDefault();
@@ -53,15 +53,15 @@ export default function Form({ words }: { words: string[] }) {
     let length = Number.parseInt(wordLength, 10);
 
     if (!Number.isInteger(length) || length > 20) {
-      setColumnCount(['1', '1']);
+      setColumnCount('grid-cols-1');
     } else if (length < 6) {
-      setColumnCount(['4', '6']);
+      setColumnCount('grid-cols-4 sm:grid-cols-6');
     } else if (length < 9) {
-      setColumnCount(['2', '4']);
+      setColumnCount('grid-cols-2 sm:grid-cols-4');
     } else if (length < 14) {
-      setColumnCount(['2', '3']);
+      setColumnCount('grid-cols-2 sm:grid-cols-3');
     } else {
-      setColumnCount(['1', '2']);
+      setColumnCount('grid-cols-1 sm:grid-cols-2');
     }
   }
 
