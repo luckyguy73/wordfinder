@@ -7,9 +7,9 @@
 }
 
 .tab {
-  @apply px-4 py-2 border rounded-t-lg border-b-0
+  @apply px-4 py-2 text-slate-400 bg-slate-50 border border-slate-300 rounded-t-lg border-b-0
 }
 
 .active {
-  @apply bg-teal-300 px-4 py-2
+  @apply px-4 py-2 text-black bg-teal-300 border-none
 }
