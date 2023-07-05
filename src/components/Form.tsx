@@ -22,7 +22,8 @@ export default function Form({ words }: { words: string[] }) {
 
   useEffect(() => {
     resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [results])
+    (document.activeElement as HTMLElement).blur();
+  }, [results]);
 
   async function handleFormSubmit(event: any) {
     event.preventDefault();
@@ -290,7 +291,10 @@ export default function Form({ words }: { words: string[] }) {
             </>
           )}
 
-          <div className='mx-auto mt-4 col-span-2 row-start-6 row-end-7' ref={resultsRef}>
+          <div
+            className='mx-auto mt-4 col-span-2 row-start-6 row-end-7'
+            ref={resultsRef}
+          >
             <button className='button' type='submit' disabled={isLoading}>
               {isLoading ? 'Loading...' : 'Submit'}
             </button>
