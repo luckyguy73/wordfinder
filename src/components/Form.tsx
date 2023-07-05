@@ -198,7 +198,7 @@ export default function Form({ words }: { words: string[] }) {
                 label='Include:'
                 required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setInclude(e.target.value)
+                  setInclude(e.target.value.toLowerCase())
                 }
                 onClick={() => setInclude('')}
                 value={include}
@@ -212,7 +212,7 @@ export default function Form({ words }: { words: string[] }) {
                 label='Exclude:'
                 required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setExclude(e.target.value)
+                  setExclude(e.target.value.toLowerCase())
                 }
                 onClick={() => setExclude('')}
                 value={exclude}
@@ -224,7 +224,7 @@ export default function Form({ words }: { words: string[] }) {
                 label='Begins:'
                 required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setStarts(e.target.value)
+                  setStarts(e.target.value.toLowerCase())
                 }
                 onClick={() => setStarts('')}
                 value={starts}
@@ -236,7 +236,7 @@ export default function Form({ words }: { words: string[] }) {
                 label='Ends:'
                 required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEnds(e.target.value)
+                  setEnds(e.target.value.toLowerCase())
                 }
                 onClick={() => setEnds('')}
                 value={ends}
@@ -270,7 +270,7 @@ export default function Form({ words }: { words: string[] }) {
                 label='Pattern:'
                 required={false}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPattern(e.target.value)
+                  setPattern(e.target.value.toLowerCase())
                 }
                 onClick={() => setPattern('')}
                 value={pattern}
