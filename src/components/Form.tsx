@@ -160,15 +160,15 @@ export default function Form({ words }: { words: string[] }) {
 
   return (
     <div className='mx-auto max-w-md'>
-      <ul className='flex bg-white items-baseline cursor-pointer'>
+      <ul className='flex bg-white items-baseline'>
         <li
-          className={`tab ${activeTab === 'Filters' ? 'active' : ''}`}
+          className={`tab ${activeTab === 'Filters' ? 'active cursor-default' : 'cursor-pointer'}`}
           onClick={() => handleTabClick('Filters')}
         >
           Filters
         </li>
         <li
-          className={`tab ${activeTab === 'Pattern' ? 'active' : ''}`}
+          className={`tab ${activeTab === 'Pattern' ? 'active cursor-default' : 'cursor-pointer'}`}
           onClick={() => handleTabClick('Pattern')}
         >
           Pattern
