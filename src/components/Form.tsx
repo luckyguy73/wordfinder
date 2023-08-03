@@ -22,6 +22,7 @@ export default function Form({ words }: { words: string[] }) {
 
   useEffect(() => {
     resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    (document.activeElement as HTMLElement).blur();
   }, [results]);
 
   async function handleFormSubmit(event: any) {
