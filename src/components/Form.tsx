@@ -33,6 +33,7 @@ export default function Form({ words }: { words: string[] }) {
 
     if (activeTab === 'Pattern') {
       wordlist = findMatchingWords(words, pattern);
+      if (exclude) wordlist = filterWordsWithoutLetters(wordlist, exclude.split(''));
     } else {
       const wordLengthInt = Number.parseInt(wordLength, 10);
 
@@ -162,13 +163,17 @@ export default function Form({ words }: { words: string[] }) {
     <div className='mx-auto max-w-md'>
       <ul className='flex bg-white items-baseline'>
         <li
-          className={`tab ${activeTab === 'Filters' ? 'active cursor-default' : 'cursor-pointer'}`}
+          className={`tab ${
+            activeTab === 'Filters' ? 'active cursor-default' : 'cursor-pointer'
+          }`}
           onClick={() => handleTabClick('Filters')}
         >
           Filters
         </li>
         <li
-          className={`tab ${activeTab === 'Pattern' ? 'active cursor-default' : 'cursor-pointer'}`}
+          className={`tab ${
+            activeTab === 'Pattern' ? 'active cursor-default' : 'cursor-pointer'
+          }`}
           onClick={() => handleTabClick('Pattern')}
         >
           Pattern
@@ -255,11 +260,6 @@ export default function Form({ words }: { words: string[] }) {
 
           {activeTab === 'Pattern' && (
             <>
-              <div className='col-span-2 text-center'>
-                <span>
-                  <strong>PATTERN SEARCH</strong>
-                </span>
-              </div>
               <Input
                 id='pattern'
                 label='Pattern:'
@@ -275,15 +275,18 @@ export default function Form({ words }: { words: string[] }) {
                 inputRef={patternRef}
                 autoFocus={false}
               />
-              <div className='col-span-2 text-center text-sm'>
-                <span>
-                  &quot;
-                  <span className='text-orange-500'>
-                    <strong>?</strong>
-                  </span>
-                  &quot; is a placeholder for a single letter.
-                </span>
-              </div>
+              <Input
+                id='exclude'
+                label='Exclude:'
+                required={false}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setExclude(e.target.value.toLowerCase())
+                }
+                onClick={() => setExclude('')}
+                value={exclude}
+                type='text'
+                placeholder='letters to exclude'
+              />
             </>
           )}
 
