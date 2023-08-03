@@ -150,22 +150,17 @@ export default function Form({ words }: { words: string[] }) {
   }
 
   function setFocus() {
-    if (includesRef.current) {
-      includesRef.current.focus();
-    }
-    if (patternRef.current) {
-      patternRef.current.focus();
-    }
+    includesRef.current?.focus();
+    patternRef.current?.focus();
   }
 
   function handleTabClick(tab: 'Filters' | 'Pattern') {
     setActiveTab(tab);
-    // clearInputs();
   }
 
   return (
     <div className='mx-auto max-w-md'>
-      <ul className='flex bg-white items-baseline'>
+      <ul className='flex bg-white items-baseline cursor-pointer'>
         <li
           className={`tab ${activeTab === 'Filters' ? 'active' : ''}`}
           onClick={() => handleTabClick('Filters')}
@@ -269,9 +264,10 @@ export default function Form({ words }: { words: string[] }) {
                 id='pattern'
                 label='Pattern:'
                 required={false}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPattern(e.target.value.toLowerCase())
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setPattern(e.target.value.toLowerCase());
+                  setWordLength(e.target.value.length.toString());
+                }}
                 onClick={() => setPattern('')}
                 value={pattern}
                 type='text'
