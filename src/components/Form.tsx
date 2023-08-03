@@ -33,7 +33,8 @@ export default function Form({ words }: { words: string[] }) {
 
     if (activeTab === 'Pattern') {
       wordlist = findMatchingWords(words, pattern);
-      if (exclude) wordlist = filterWordsWithoutLetters(wordlist, exclude.split(''));
+      if (exclude)
+        wordlist = filterWordsWithoutLetters(wordlist, exclude.split(''));
     } else {
       const wordLengthInt = Number.parseInt(wordLength, 10);
 
@@ -260,6 +261,15 @@ export default function Form({ words }: { words: string[] }) {
 
           {activeTab === 'Pattern' && (
             <>
+              <div className='col-span-2 text-center text-sm h-full flex items-end justify-center'>
+                <span className='leading-none'>
+                  &quot;
+                  <span className='text-orange-500'>
+                    <strong>?</strong>
+                  </span>
+                  &quot; is a placeholder for a single letter.
+                </span>
+              </div>
               <Input
                 id='pattern'
                 label='Pattern:'
