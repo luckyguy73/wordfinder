@@ -13,7 +13,7 @@ export default function Results({ results, columnCount }: any) {
             rounded border border-slate-400 sm:hover:border-white text-center active:transform active:scale-90'
           >
             <Link
-              className='active:bg-white'
+              className='active:bg-white sm:active:bg-orange-400'
               href={`https://www.merriam-webster.com/dictionary/${result}`}
               target='_blank'
             >
