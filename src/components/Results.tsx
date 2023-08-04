@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function Results({ results, columnCount }: any) {
   return (
     <div className='py-3'>
@@ -7,9 +9,16 @@ export default function Results({ results, columnCount }: any) {
         {results.map((result: string, index: number) => (
           <li
             key={index}
-            className='bg-white rounded border border-slate-400 text-center'
+            className='bg-white sm:hover:bg-orange-400 sm:hover:text-white sm:hover:font-bold 
+            rounded border border-slate-400 sm:hover:border-white text-center active:transform active:scale-90'
           >
-            {result}
+            <Link
+              className=''
+              href={`https://www.merriam-webster.com/dictionary/${result}`}
+              target='_blank'
+            >
+              {result}
+            </Link>
           </li>
         ))}
       </ul>
