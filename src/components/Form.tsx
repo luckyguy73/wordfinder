@@ -259,11 +259,12 @@ export default function Form({ words }: { words: string[] }) {
             <>
               <div className='col-span-2 text-center text-sm h-full flex items-end justify-center'>
                 <span className='leading-none'>
+                  Use
                   &quot;
                   <span className='text-orange-500'>
                     <strong>?</strong>
                   </span>
-                  &quot; is a placeholder for a single letter.
+                  &quot; for unknown letters
                 </span>
               </div>
               <Input
@@ -277,7 +278,7 @@ export default function Form({ words }: { words: string[] }) {
                 onClick={() => setPattern('')}
                 value={pattern}
                 type='text'
-                placeholder='Pattern: e.g. ?e??t'
+                placeholder='example: ?e??t'
                 inputRef={patternRef}
                 autoFocus={false}
               />
