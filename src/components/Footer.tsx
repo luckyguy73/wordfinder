@@ -1,8 +1,11 @@
 export default function Footer() {
+
+  const year : number = new Date().getFullYear();
+
   return (
     <footer className="m-2">
       <p className='text-center text-gray-500 text-xs'>
-        &copy;2023 Ian and Saury De Bie. All rights reserved.
+        &copy;2023-{ year } Ian and Saury De Bie. All rights reserved.
       </p>
     </footer>
   );
