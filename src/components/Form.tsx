@@ -11,7 +11,7 @@ export default function Form({ words }: { words: string[] }) {
   const [exclude, setExclude] = useState('');
   const [starts, setStarts] = useState('');
   const [ends, setEnds] = useState('');
-  const [wordLength, setWordLength] = useState('5');
+  const [wordLength, setWordLength] = useState('');
   const [columnCount, setColumnCount] = useState('');
   const [pattern, setPattern] = useState('');
   const [activeTab, setActiveTab] = useState<'Filters' | 'Pattern'>('Filters');
@@ -184,10 +184,6 @@ export default function Form({ words }: { words: string[] }) {
         <form
           onSubmit={handleFormSubmit}
           className='
-          grid
-          grid-cols-[100px_calc(100%-120px)]
-          grid-rows-[repeat(5,_minmax(0,_1fr))_96px]
-          gap-y-3
           items-baseline
           justify-center
           '
@@ -281,7 +277,7 @@ export default function Form({ words }: { words: string[] }) {
                 onClick={() => setPattern('')}
                 value={pattern}
                 type='text'
-                placeholder='e.g. ?e??t'
+                placeholder='Pattern: e.g. ?e??t'
                 inputRef={patternRef}
                 autoFocus={false}
               />
@@ -301,7 +297,7 @@ export default function Form({ words }: { words: string[] }) {
           )}
 
           <div
-            className='mx-auto mt-4 col-span-2 row-start-6 row-end-7'
+            className='mx-auto mt-6 col-span-2 row-start-6 row-end-7 text-center'
             ref={resultsRef}
           >
             <button className='button' type='submit' disabled={isLoading}>
