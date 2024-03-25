@@ -11,7 +11,7 @@ export default function Form({ words }: { words: string[] }) {
   const [exclude, setExclude] = useState('');
   const [starts, setStarts] = useState('');
   const [ends, setEnds] = useState('');
-  const [wordLength, setWordLength] = useState('');
+  const [wordLength, setWordLength] = useState('5');
   const [columnCount, setColumnCount] = useState('');
   const [pattern, setPattern] = useState('');
   const [activeTab, setActiveTab] = useState<'Filters' | 'Pattern'>('Filters');
